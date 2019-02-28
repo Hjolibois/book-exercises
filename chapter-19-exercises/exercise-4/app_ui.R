@@ -6,10 +6,32 @@ library("shiny")
 # Give the layout a title of "Income Inequality".
 # The layout should include the following elements:
 
+ui <- navbarPage("Income Inequality",
 
   # A `tabPanel()` with a title "Introduction" to represent the first tab.
   # This layout will contain the following elements:
-
+  tabPanel("Introduction",
+           titlePanel("Income Inequality"), 
+           p("The below diagram was create by the New York Times to illustrate the increasing level of inequality in the US."),
+           img(src = "inequality.png"),
+           p(a(href = "https://www.nytimes.com/interactive/2017/08/07/opinion/leonhardt-income-inequality.html", "(source)")),
+           p("The graph shows that wealth is funneling upwards in America. The 99.999th percentile saw the largest income growth at", 
+             strong("6%"),
+             "meanwhile income for 60% of the population",
+             em("(has stagnated at 1.4%)")),
+           tabPanel(
+             "Growth Chart",
+             titlePanel("Income growth 1980-2014"),
+             sidebarPanel(
+               sliderInput("percentile", label = "Income Percentile", min = 0, max = 100, value = c(0, 100))
+             ),
+             mainPanel(
+               plotOutput("plot"),
+               p("Source:", a(href = "http://gabriel-zucman.eu/usdina/", "http://gabriel-zucman.eu/usdina/"))
+             )
+           )
+         )
+       )
 
     # A `titlePanel()` with the text "Income Inequality"
 
